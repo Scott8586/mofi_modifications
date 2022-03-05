@@ -1,0 +1,123 @@
+# This must stay here to turn on and off
+config snmp global
+	option enabled '1'
+	option wanaccess '0'
+
+config agent
+	option agentaddress UDP:161
+
+config com2sec public
+	option secname ro
+	option source default
+	option community public
+
+config com2sec private
+	option secname rw
+	option source localhost
+	option community private
+
+config group public_v1
+	option group public
+	option version v1
+	option secname ro
+
+config group public_v2c
+	option group public
+	option version v2c
+	option secname ro
+
+config group public_usm
+	option group public
+	option version usm
+	option secname ro
+
+config group private_v1
+	option group private
+	option version v1
+	option secname rw
+
+config group private_v2c
+	option group private
+	option version v2c
+	option secname rw
+
+config group private_usm
+	option group private
+	option version usm
+	option secname rw
+
+config view all
+	option viewname all
+	option type included
+	option oid .1
+
+config access public_access
+	option group public
+	option context none
+	option version any
+	option level noauth
+	option prefix exact
+	option read all
+	option write none
+	option notify none
+
+config access private_access
+	option group private
+	option context none
+	option version any
+	option level noauth
+	option prefix exact
+	option read all
+	option write all
+	option notify all
+
+config system
+	option sysLocation	'office'
+	option sysContact	'MofiNetwork'
+	option sysName		'MOFI4500'
+#	option sysServices	72
+#	option sysDescr		'adult playground'
+#	option sysObjectID	'1.2.3.4'
+
+config exec 
+        option name     lte_mode
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_mode"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.1"
+
+config exec 
+        option name     lte_band
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_band"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.2"
+
+config exec 
+        option name     lte_rssi
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_rssi"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.3"
+
+config exec 
+        option name     lte_rsrq
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_rsrq"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.4"
+
+config exec 
+        option name     lte_rsrp
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_rsrp"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.5"
+
+config exec 
+        option name     lte_current_carrier
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_current_carrier"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.6"
+
+config exec
+	option name	filedescriptors
+	option prog	/bin/cat
+	option args	/proc/sys/fs/file-nr
+#	option miboid	1.2.3.4
+
