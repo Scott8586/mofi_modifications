@@ -115,6 +115,12 @@ config exec
         option args     "lte_current_carrier"  
         option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.6"
 
+config exec 
+        option name     lte_usage
+        option prog     /usr/sbin/mofi_snmp.sh
+        option args     "lte_usage"  
+        option miboid   "1.3.6.1.4.1.88888.1.1.16.1.1.7"
+
 config exec
 	option name	filedescriptors
 	option prog	/bin/cat

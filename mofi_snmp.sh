@@ -1,6 +1,9 @@
 #!/bin/sh
 cmd=$1
 
+month=$(date +%b)
+interface="br-lan"
+
 DEVICE=/dev/modem
 
 case "$cmd" in
@@ -86,6 +89,10 @@ case "$cmd" in
 		[ -z "$carrier" ] && carrier="unknown"
 		echo "$carrier"
 		;;
+        lte_usage)
+                usage=$(vnstat -i $interface --short | grep $month | awk '{ print $9 * 1024 }')
+                echo "$usage"
+                ;;
 	*)
 		echo "unknown"
 		;;
