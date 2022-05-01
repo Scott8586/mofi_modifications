@@ -1,6 +1,7 @@
 #!/bin/sh
 cmd=$1
 
+export conversion=1024
 month=$(date +%b)
 interface="br-lan"
 
@@ -90,7 +91,13 @@ case "$cmd" in
 		echo "$carrier"
 		;;
         lte_usage)
-                usage=$(vnstat -i $interface --short | grep $month | awk '{ print $9 * 1024 }')
+		units=$(vnstat -i $interface --short | grep $month | awk '{ print $10 }')
+
+		if [ $units == "MiB" ]; then
+		    export conversion=1
+		fi
+
+                usage=$(vnstat -i $interface --short | grep $month | awk -v conv=$conversion '{ print $9 * conv }')
                 echo "$usage"
                 ;;
 	*)
