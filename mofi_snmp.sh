@@ -93,7 +93,7 @@ case "$cmd" in
         lte_usage)
 		units=$(vnstat -i $interface --short | grep $month | awk '{ print $10 }')
 
-		if [ $units == "MiB" ]; then
+		if [ $units = "MiB" ]; then
 		    export conversion=1
 		fi
 
